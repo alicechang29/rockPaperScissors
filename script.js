@@ -1,3 +1,44 @@
+const container = document.querySelector("#container");
+
+const rockButton = document.createElement("button");
+const paperButton = document.createElement("button");
+const scissorsButton = document.createElement("button");
+
+rockButton.textContent = "ROCK";
+paperButton.textContent = "PAPER";
+scissorsButton.textContent = "SCISSORS";
+//event listeners for the player selection
+
+rockButton.addEventListener("click", function () {
+  playRound("ROCK");
+});
+paperButton.addEventListener("click", function () {
+  playRound("PAPER");
+});
+scissorsButton.addEventListener("click", function () {
+  playRound("SCISSORS");
+});
+
+container.appendChild(rockButton);
+container.appendChild(paperButton);
+container.appendChild(scissorsButton);
+
+let results = document.createElement("div");
+results.classList.add("results");
+container.appendChild(results);
+
+let playerScoreElement = document.createElement("div");
+playerScoreElement.classList.add("playerScoreElement");
+container.appendChild(playerScoreElement);
+
+let computerScoreElement = document.createElement("div");
+computerScoreElement.classList.add("computerScoreElement");
+container.appendChild(computerScoreElement);
+
+let playerScore = 0;
+let computerScore = 0;
+let roundsPlayed = 0;
+
 function getComputerChoice(choices) {
   choices = ["ROCK", "PAPER", "SCISSORS"];
   let choiceIndex = Math.floor(Math.random() * choices.length);
@@ -7,51 +48,38 @@ function getComputerChoice(choices) {
 function playRound(playerSelection, computerSelection) {
   const choices = ["ROCK", "PAPER", "SCISSORS"];
   computerSelection = getComputerChoice(choices);
-  playerSelection = prompt(`select ${choices}`).toUpperCase();
-  if (!choices.includes(playerSelection)) {
-    alert(`Please select ${choices}`);
-    return playRound();
-  }
+  console.log(computerSelection);
   if (playerSelection === computerSelection) {
-    alert(`Computer selected ${computerSelection}, you tie!`);
-    return playRound();
-  } else if (playerSelection === "PAPER" && computerSelection === "ROCK") {
-    return "You Win! Paper beats Rock!";
-  } else if (playerSelection === "SCISSORS" && computerSelection === "PAPER") {
-    return "You Win! Scissors beats Paper!";
-  } else if (playerSelection === "ROCK" && computerSelection === "SCISSORS") {
-    return "You Win! Rock beats Scissors!";
-  } else if (computerSelection === "PAPER" && playerSelection === "ROCK") {
-    return "You Lose! Paper beats Rock!";
-  } else if (computerSelection === "SCISSORS" && playerSelection === "PAPER") {
-    return "You Lose! Scissors beats Paper!";
-  } else if (computerSelection === "ROCK" && playerSelection === "SCISSORS") {
-    return "You Lose! Rock beats Scissors!";
+    results.textContent = `You Tie! Computer selected ${computerSelection}`;
+    playRound();
+  } else if (
+    (playerSelection === "PAPER" && computerSelection === "ROCK") ||
+    (playerSelection === "SCISSORS" && computerSelection === "PAPER") ||
+    (playerSelection === "ROCK" && computerSelection === "SCISSORS")
+  ) {
+    results.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+    playerScore++;
+  } else if (
+    (playerSelection === "PAPER" && computerSelection === "SCISSORS") ||
+    (playerSelection === "SCISSORS" && computerSelection === "ROCK") ||
+    (playerSelection === "ROCK" && computerSelection === "PAPER")
+  ) {
+    results.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
+    computerScore++;
   }
+  console.log("scores", playerScore, computerScore);
 }
 
-function game() {
-  let wins = [
-    "You Win! Paper beats Rock!",
-    "You Win! Scissors beats Paper!",
-    "You Win! Rock beats Scissors!",
-  ];
-  let playerScore = 0;
-  let computerScore = 0;
-  for (let i = 0; i < 5; i++) {
-    let roundResult = playRound();
-    alert(roundResult);
-    alert(playerScore);
-    alert(computerScore);
-    if (wins.includes(roundResult)) {
-      playerScore++;
-    } else {
-      computerScore++;
-    }
-  }
+roundsPlayed++;
+
+//this whole section isn't working
+playerScoreElement.textContent = `Player: ${playerScore}`;
+computerScoreElement.textContent = `Computer: ${computerScore}`;
+
+if (roundsPlayed >= 5 || computerScore >= 5) {
   if (playerScore > computerScore) {
-    return `Congrats, you win! ${playerScore} to ${computerScore}`;
+    results.textContent = `Congrats, you win! ${playerScore} to ${computerScore}`;
   } else {
-    return `Too bad, you lost ${computerScore} to ${playerScore}. Try again next time!`;
+    results.textContent = `Too bad, you lost ${computerScore} to ${playerScore}. Try again next time!`;
   }
 }
