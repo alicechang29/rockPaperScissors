@@ -67,19 +67,18 @@ function playRound(playerSelection, computerSelection) {
     results.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
     computerScore++;
   }
-  console.log("scores", playerScore, computerScore);
-}
+  playerScoreElement.textContent = `Player: ${playerScore}`;
+  computerScoreElement.textContent = `Computer: ${computerScore}`;
 
-roundsPlayed++;
-
-//this whole section isn't working
-playerScoreElement.textContent = `Player: ${playerScore}`;
-computerScoreElement.textContent = `Computer: ${computerScore}`;
-
-if (roundsPlayed >= 5 || computerScore >= 5) {
-  if (playerScore > computerScore) {
-    results.textContent = `Congrats, you win! ${playerScore} to ${computerScore}`;
-  } else {
-    results.textContent = `Too bad, you lost ${computerScore} to ${playerScore}. Try again next time!`;
+  roundsPlayed++;
+  if (roundsPlayed >= 5 || playerScore >= 5 || computerScore >= 5) {
+    if (playerScore > computerScore) {
+      results.textContent = `Congrats, you win! ${playerScore} to ${computerScore}`;
+    } else {
+      results.textContent = `Too bad, you lost ${computerScore} to ${playerScore}. Try again next time!`;
+    }
+    rockButton.disabled = true;
+    paperButton.disabled = true;
+    scissorsButton.disabled = true;
   }
 }
