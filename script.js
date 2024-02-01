@@ -16,17 +16,17 @@ let roundsPlayed = 0;
 restartGameButton.textContent = "Play Again!";
 
 const rockButton = document.createElement("img");
-rockButton.src = "images/carrot.png";
+rockButton.src = "images/rock2.png";
 rockButton.alt = "ROCK";
 rockButton.classList.add("imageButton");
 
 const paperButton = document.createElement("img");
-paperButton.src = "images/pizza.png";
+paperButton.src = "images/paper.png";
 paperButton.alt = "PAPER";
 paperButton.classList.add("imageButton");
 
 const scissorsButton = document.createElement("img");
-scissorsButton.src = "images/pizza cutter.png";
+scissorsButton.src = "images/scissors.png";
 scissorsButton.alt = "SCISSORS";
 scissorsButton.classList.add("imageButton");
 
@@ -68,20 +68,20 @@ function playRound(playerSelection, computerSelection) {
   computerSelection = getComputerChoice(choices);
   console.log(computerSelection);
   if (playerSelection === computerSelection) {
-    results.textContent = `You Tie! Computer selected ${computerSelection}`;
+    results.textContent = `You Tie! Alfred also selected ${computerSelection}`;
   } else if (
     (playerSelection === "PAPER" && computerSelection === "ROCK") ||
     (playerSelection === "SCISSORS" && computerSelection === "PAPER") ||
     (playerSelection === "ROCK" && computerSelection === "SCISSORS")
   ) {
-    results.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+    results.textContent = `You Win! Your ${playerSelection} beats Alfred's ${computerSelection}`;
     playerScore++;
   } else if (
     (playerSelection === "PAPER" && computerSelection === "SCISSORS") ||
     (playerSelection === "SCISSORS" && computerSelection === "ROCK") ||
     (playerSelection === "ROCK" && computerSelection === "PAPER")
   ) {
-    results.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
+    results.textContent = `You Lose! Alfred's ${computerSelection} beats your ${playerSelection}`;
     computerScore++;
   }
   playerScoreElement.textContent = `Player: ${playerScore}`;
@@ -95,14 +95,14 @@ function playRound(playerSelection, computerSelection) {
     } else {
       results.textContent = `Too bad, you lost ${computerScore} to ${playerScore}. Try again next time!`;
     }
+    rockButton.disabled = true;
+    paperButton.disabled = true;
+    scissorsButton.disabled = true;
     restartGame();
   }
 }
 
 function restartGame() {
-  rockButton.disabled = true;
-  paperButton.disabled = true;
-  scissorsButton.disabled = true;
   container.appendChild(restartGameButton);
   restartGameButton.addEventListener("click", function () {
     playerScore = 0;
@@ -117,3 +117,13 @@ function restartGame() {
     container.removeChild(restartGameButton);
   });
 }
+
+//background-color: #143642;
+/*
+img {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+*/
