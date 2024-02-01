@@ -121,3 +121,24 @@ img {
 .robot-container:hover .robot-hover-text {
   opacity: 1;
 }
+
+.footer {
+  /*background-color: #d8f793;*/
+  color: #143642;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer a {
+  color: #143642;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+  background-color: #d8f793;
+}
