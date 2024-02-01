@@ -85,7 +85,7 @@ function playRound(playerSelection, computerSelection) {
     computerScore++;
   }
   playerScoreElement.textContent = `Player: ${playerScore}`;
-  computerScoreElement.textContent = `Computer: ${computerScore}`;
+  computerScoreElement.textContent = `Alfred: ${computerScore}`;
 
   roundsPlayed++;
 
@@ -110,7 +110,7 @@ function restartGame() {
     roundsPlayed = 0;
     results.textContent = "";
     playerScoreElement.textContent = "Player: 0";
-    computerScoreElement.textContent = "Computer: 0";
+    computerScoreElement.textContent = "Alfred: 0";
     rockButton.disabled = false;
     paperButton.disabled = false;
     scissorsButton.disabled = false;
