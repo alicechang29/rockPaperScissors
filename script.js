@@ -1,18 +1,9 @@
 const container = document.querySelector("#container");
-//const paperButton = document.createElement("button");
-//const scissorsButton = document.createElement("button");
 const restartGameButton = document.createElement("button");
 const results = document.createElement("div");
 const playerScoreElement = document.createElement("div");
 const computerScoreElement = document.createElement("div");
 
-let playerScore = 0;
-let computerScore = 0;
-let roundsPlayed = 0;
-
-//rockButton.textContent = "ROCK";
-//paperButton.textContent = "PAPER";
-//scissorsButton.textContent = "SCISSORS";
 restartGameButton.textContent = "Play Again!";
 
 const rockButton = document.createElement("img");
@@ -63,10 +54,14 @@ function getComputerChoice(choices) {
   return choices[choiceIndex];
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
 function playRound(playerSelection, computerSelection) {
   const choices = ["ROCK", "PAPER", "SCISSORS"];
   computerSelection = getComputerChoice(choices);
-  console.log(computerSelection);
+  robotImageChange(computerSelection);
+
   if (playerSelection === computerSelection) {
     results.textContent = `You Tie! Alfred also selected ${computerSelection}`;
   } else if (
@@ -87,23 +82,42 @@ function playRound(playerSelection, computerSelection) {
   playerScoreElement.textContent = `Player: ${playerScore}`;
   computerScoreElement.textContent = `Alfred: ${computerScore}`;
 
-  roundsPlayed++;
-
-  if (roundsPlayed >= 5 || playerScore >= 5 || computerScore >= 5) {
+  if (playerScore === 3 || computerScore === 3) {
     if (playerScore > computerScore) {
       results.textContent = `Congrats, you win! ${playerScore} to ${computerScore}`;
     } else {
       results.textContent = `Too bad, you lost ${computerScore} to ${playerScore}. Try again next time!`;
     }
-    rockButton.disabled = true;
-    paperButton.disabled = true;
-    scissorsButton.disabled = true;
+    disableButtons();
     restartGame();
   }
 }
 
+function robotImageChange(computerSelection) {
+  if (computerSelection === "ROCK") {
+    document.querySelector(".robot").src = "images/alfred-rock2.png";
+  } else if (computerSelection === "PAPER") {
+    document.querySelector(".robot").src = "images/alfred-paper2.png";
+  } else {
+    document.querySelector(".robot").src = "images/alfred-scissors2.png";
+  }
+}
+
+function disableButtons() {
+  rockButton.disabled = true;
+  paperButton.disabled = true;
+  scissorsButton.disabled = true;
+}
+
+function enableButtons() {
+  rockButton.disabled = false;
+  paperButton.disabled = false;
+  scissorsButton.disabled = false;
+}
+
 function restartGame() {
   container.appendChild(restartGameButton);
+  document.querySelector(".robot").src = "images/robot.png";
   restartGameButton.addEventListener("click", function () {
     playerScore = 0;
     computerScore = 0;
@@ -111,19 +125,7 @@ function restartGame() {
     results.textContent = "";
     playerScoreElement.textContent = "Player: 0";
     computerScoreElement.textContent = "Alfred: 0";
-    rockButton.disabled = false;
-    paperButton.disabled = false;
-    scissorsButton.disabled = false;
+    enableButtons();
     container.removeChild(restartGameButton);
   });
 }
-
-//background-color: #143642;
-/*
-img {
-  width: 100px;
-  height: 100px;
-  margin-right: 10px;
-}
-
-*/
