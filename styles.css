@@ -83,22 +83,33 @@ img {
   margin-right: 10px;
 }
 
+.game-state {
+  width: 100%;
+  height: auto;
+}
+
 .results,
 .playerScoreElement,
-.computerScoreElement {
+.computerScoreElement,
+.winnerDeclaration {
   text-align: center;
   font-size: larger;
   margin: 10px;
-}
-
-.playerScoreElement {
   font-weight: bold;
-  color: #143642;
 }
 
+.playerScoreElement,
 .computerScoreElement {
-  font-weight: bold;
   color: #143642;
+}
+
+.winnerDeclaration {
+  text-transform: uppercase;
+  font-size: 2em;
+  font-weight: bold;
+  color: #f15156;
+  font-size: x-large;
+  padding: 15px;
 }
 
 .robot {
@@ -129,11 +140,9 @@ img {
 }
 
 .footer {
-  /*background-color: #d8f793;*/
   color: #143642;
   text-align: center;
   padding: 10px;
-  position: fixed;
   bottom: 0;
   width: 100%;
 }

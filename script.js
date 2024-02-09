@@ -1,8 +1,10 @@
 const container = document.querySelector("#container");
+const gameState = document.createElement("div");
 const restartGameButton = document.createElement("button");
 const results = document.createElement("div");
 const playerScoreElement = document.createElement("div");
 const computerScoreElement = document.createElement("div");
+const winnerDeclaration = document.createElement("div");
 
 restartGameButton.textContent = "Play Again!";
 
@@ -24,14 +26,17 @@ scissorsButton.classList.add("imageButton");
 results.classList.add("results");
 playerScoreElement.classList.add("playerScoreElement");
 computerScoreElement.classList.add("computerScoreElement");
+winnerDeclaration.classList.add("winnerDeclaration");
 restartGameButton.classList.add("restartGameButton");
 
 container.appendChild(rockButton);
 container.appendChild(paperButton);
 container.appendChild(scissorsButton);
-container.appendChild(results);
-container.appendChild(playerScoreElement);
-container.appendChild(computerScoreElement);
+container.appendChild(gameState);
+gameState.appendChild(results);
+gameState.appendChild(playerScoreElement);
+gameState.appendChild(computerScoreElement);
+gameState.appendChild(winnerDeclaration);
 
 //event listeners for the player selection
 
@@ -81,12 +86,15 @@ function playRound(playerSelection, computerSelection) {
   }
   playerScoreElement.textContent = `Player: ${playerScore}`;
   computerScoreElement.textContent = `Alfred: ${computerScore}`;
+  gameEvaluator();
+}
 
+function gameEvaluator() {
   if (playerScore === 3 || computerScore === 3) {
     if (playerScore > computerScore) {
-      results.textContent = `Congrats, you win! ${playerScore} to ${computerScore}`;
+      winnerDeclaration.textContent = `Congrats, you win! ${playerScore} to ${computerScore}`;
     } else {
-      results.textContent = `Too bad, you lost ${computerScore} to ${playerScore}. Try again next time!`;
+      winnerDeclaration.textContent = `Too bad, you lost ${computerScore} to ${playerScore}. Try again next time!`;
     }
     disableButtons();
     restartGame();
@@ -116,13 +124,14 @@ function enableButtons() {
 }
 
 function restartGame() {
-  container.appendChild(restartGameButton);
+  gameState.appendChild(restartGameButton);
   document.querySelector(".robot").src = "images/robot.png";
   restartGameButton.addEventListener("click", function () {
     playerScore = 0;
     computerScore = 0;
     roundsPlayed = 0;
     results.textContent = "";
+    winnerDeclaration.textContent = "";
     playerScoreElement.textContent = "Player: 0";
     computerScoreElement.textContent = "Alfred: 0";
     enableButtons();
